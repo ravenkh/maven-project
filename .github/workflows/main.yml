@@ -18,6 +18,7 @@ jobs:
         ### Configure DETECT environment variables
         env:
           DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
+          DETECT.PROJECT.VERSION: 1
           BLACKDUCK_TRUST_CERT: true
           DETECT_ACCURACY_REQUIRED: none
           
@@ -32,6 +33,12 @@ jobs:
           ### FIX PULL REQUEST CREATION: Uncomment below to enable
           # blackduck_fixpr_enabled: true
           # github_token: ${{ secrets.GITHUB_TOKEN }} # Required when Fix PRs is enabled
+          ### Uncomment below configuration to enable automatic fix pull request creation if vulnerabilities are reported
+          blackduck_fixpr_enabled: true
+          blackduck_fixpr_maxCount: 5
+          blackduck_fixpr_filter_severities: 'CRITICAL,HIGH, MEDIUM'
+          blackduck_fixpr_useUpgradeGuidance: 'SHORT_TERM,LONG_TERM'
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Mandatory when blackduck_fixpr_enabled is set to 'true'
           
           ### PULL REQUEST COMMENTS: Uncomment below to enable
           # blackduck_prcomment_enabled: true 
